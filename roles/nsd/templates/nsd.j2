@@ -1,0 +1,26 @@
+server:
+	server-count: 1
+	ip-address: 192.168.12.105
+	ip-transparent: yes
+	do-ip4: yes
+	do-ip6: yes
+	port: 53
+	verbosity: 2
+	username: nsd
+	zonesdir: "/etc/nsd/zone"
+	logfile: "/var/log/nsd.log"
+	pidfile: "/run/nsd/nsd.pid"
+	hide-version: yes
+	identity: "unidentified"
+	statistics: 3600
+	log-time-ascii: yes
+	zonefiles-check: yes
+
+{% for domain in nsd %}
+zone:
+	name: "{{ domain }}"
+	zonefile: "{{ domain }}.zone"
+	#provide-xfr: 62.210.16.8 NOKEY
+	#notify: 62.210.16.8 NOKEY
+
+{% endfor %}

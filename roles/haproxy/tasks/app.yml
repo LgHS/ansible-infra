@@ -1,0 +1,6 @@
+---
+# confgig general de tout les hosts
+
+- name: Installation de haproxy
+  apt: name=haproxy state=present cache_valid_time=3600
+

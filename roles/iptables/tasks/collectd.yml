@@ -1,0 +1,6 @@
+---
+
+- name: Copie des fichier de configuration collectd
+  copy: src=interfaces.conf dest=/etc/collectd/collectd.conf.d/interfaces.conf owner=root group=root mode="u+rw,g+r,o+r"
+  notify:
+    - restart collectd

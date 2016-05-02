@@ -1,0 +1,13 @@
+---
+# ajout des users & leurs cles ssh
+
+- name: Ajout des utilisateur
+  user: name={{ item.value.name }} shell=/bin/bash groups=sudo append=yes state=present uid={{ item.key }}
+  with_dict: "{{users}}"
+
+- name: Ajout cless ssh au utilisateur
+  authorized_key: user={{ item.0.name }} key="{{ item.1 }}"
+  with_subelements:
+     - "{{ users }}"
+     - keys
+

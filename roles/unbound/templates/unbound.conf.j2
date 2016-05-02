@@ -1,0 +1,40 @@
+server:
+	auto-trust-anchor-file: "/var/lib/unbound/root.key"
+	verbosity: 1
+	interface: 10.4.2.1
+	port: 53
+	do-ip4: yes
+	do-ip6: yes
+	do-udp: yes
+	do-tcp: yes
+	access-control: ::1 allow_snoop
+	access-control: 127.0.0.1 allow_snoop
+	access-control: 10.4.2.0/24 allow_snoop
+	private-address: 10.4.2.0/24
+	root-hints: "/var/lib/unbound/root.hints"
+	hide-identity: yes
+	hide-version: yes
+	harden-glue: yes
+	harden-dnssec-stripped: yes
+	use-caps-for-id: yes
+	cache-min-ttl: 300
+	cache-max-ttl: 3600
+	prefetch: yes
+	rrset-cache-size: 51m
+	msg-cache-size: 25m
+	so-rcvbuf: 1m
+	unwanted-reply-threshold: 10000
+	do-not-query-localhost: no
+	val-clean-additional: yes
+
+local-zone: "moss.lghs.space." static
+{% for d in unbound %}
+{% if 'ipv4' in d %}
+	local-data: "{{ d.keys()[0] }}.  IN A {{ d['ipv4'] }}"
+	local-data-ptr: "{{ d['ipv4'] }}  {{ d.keys()[0] }}"
+{% endif %}
+{% if 'ipv6' in d %}
+	local-data: "{{ d.keys()[0] }}.  IN AAAA {{ d['ipv6'] }}"
+	local-data-ptr: "{{ d['ipv6'] }}  {{ d.keys()[0] }}"
+{% endif %}
+{% endfor %}

@@ -1,0 +1,7 @@
+---
+
+- name: restart sshguard
+  service: name=sshguard state=restarted
+
+- name: restart monit
+  service: name=monit state=restarted

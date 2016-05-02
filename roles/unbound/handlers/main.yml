@@ -1,0 +1,7 @@
+---
+
+- name: restart unbound
+  service: name=unbound state=restarted
+
+- name: restart monit
+  service: name=monit state=restarted

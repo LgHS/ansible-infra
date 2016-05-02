@@ -1,0 +1,12 @@
+---
+
+- name: Installation de socat
+  apt: name=socat state=present cache_valid_time=3600
+
+- name: Script stat haproxy
+  copy: src=haproxy-stat.sh dest=/etc/collectd/haproxy-stat.sh owner=haproxy group=haproxy mode="u+rx,g-rwx,o-rwx"
+
+- name: Copie des fichier de configuration haproxy
+  copy: src=haproxy.conf dest=/etc/collectd/collectd.conf.d/haproxy.conf owner=root group=root mode="u+r,g-rwx,o-rwx"
+  notify:
+    - restart collectd

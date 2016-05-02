@@ -1,0 +1,7 @@
+---
+# confgig commun de tout les hosts
+
+- hosts: all
+
+  roles:
+    - commun

@@ -1,0 +1,35 @@
+---
+# confgig commun de tout les hosts
+
+- hosts: moss.lghs.space
+  vars:
+    unbound:
+      - moss.lghs.space:
+        ipv4: 10.4.2.1
+      - sql.moss.lghs.space:
+        ipv4: 10.4.2.5
+      - app.moss.lghs.space:
+        ipv4: 10.4.2.10
+      - mail.moss.lghs.space:
+        ipv4: 10.4.2.15
+      - monit.moss.lghs.space:
+        ipv4: 10.4.2.20
+    iptables:
+      TCP: [ 80, 443, 22, 53, 2812 ]
+      UDP: [ 53 ]
+      TCP-FORWARD:
+      - 10.4.2.15: [ 25, 143, 465, 993, 587 ]
+      UDP-FORWARD:
+      TCP6-FORWARD:
+      UDP6-FORWARD:
+    nsd:
+      - lghs.space
+      - lghs.be
+
+  roles:
+    - iptables
+    - sshguard
+    - unbound
+    - nsd
+    - haproxy
+    - letsencrypt

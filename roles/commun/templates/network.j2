@@ -1,0 +1,20 @@
+LoadPlugin network
+{% if ansible_hostname == "monit" %}
+LoadPlugin rrdtool
+
+<Plugin network>
+	Listen "0.0.0.0" "25826"
+</Plugin>
+<Plugin "rrdtool">
+  DataDir "/var/lib/collectd/rrd"
+  CacheFlush 120
+  WritesPerSecond 50
+</Plugin>
+{% else %}
+
+<Plugin network>
+	Server "monit.moss.lghs.space" "25826"
+	TimeToLive 128
+</Plugin>
+
+{% endif %}

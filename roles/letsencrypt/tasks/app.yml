@@ -1,0 +1,39 @@
+---
+
+- name: Installation de openssl, python, busybox
+  apt: name={{ item }} state=present cache_valid_time=3600
+  with_items:
+    - openssl
+    - python
+    - busybox
+
+- name: Ajout de l'user
+  user: name=letsencrypt shell=/bin/bash append=yes state=present uid=999
+
+- name: Créer repertoire collectd
+  file: path=/home/letsencrypt/{{ item }} state=directory owner=letsencrypt group=letsencrypt mode="u+rwX,g+rwX,o+r" recurse=yes
+  with_items:
+    - bundles
+    - ssl
+    - webroot
+
+- name: Copie des fichier
+  copy: src={{ item }} dest=/etc/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
+  with_items:
+    - le-cron.sh
+    - acme_tiny.py
+
+- name: Copie des fichier
+  copy: src=secured/letsencrypt.key dest=/home/letsencrypt/ssl/letsencrypt.key owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
+
+- name: Copie des fichier
+  copy: src=letsencrypt.service dest=/etc/systemd/system/letsencrypt.service owner=root group=root mode="u+r,g-rwx,o-rwx"
+  with_items:
+    - le-cron.sh
+    - acme_tiny.py
+
+- name: cron letsencrypt
+  cron: name="check certificates" minute="30" hour="4" job="/home/letsencrypt/le-cron.sh"
+
+- name: Activer monit au démérage
+  service: name=letsencrypt.service state=started enabled=yes

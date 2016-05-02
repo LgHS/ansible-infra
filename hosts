@@ -1,0 +1,5 @@
+app.moss.lghs.space ansible_become=yes
+mail.moss.lghs.space ansible_become=yes
+#monit.moss.lghs.space ansible_become=yes
+sql.moss.lghs.space ansible_become=yes
+moss.lghs.space ansible_become=yes

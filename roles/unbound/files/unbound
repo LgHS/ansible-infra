@@ -1,0 +1,7 @@
+check process unbound with pidfile /var/run/unbound.pid
+  group dns
+  start program = "/etc/init.d/unbound start"
+  stop  program = "/etc/init.d/unbound stop"
+   if failed host 10.4.2.1 port 53 type udp then alert
+   if failed host 10.4.2.1 port 53 type tcp then alert
+
