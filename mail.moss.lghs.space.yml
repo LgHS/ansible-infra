@@ -10,6 +10,7 @@
 
     - letsencrypt
     - le-mail
+    - dovecote
     #~ - dovecote
     #~ - mlmmj
     #~ - dovecote
