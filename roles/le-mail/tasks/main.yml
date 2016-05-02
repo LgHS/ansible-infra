@@ -1,0 +1,23 @@
+---
+
+- name: Créer repertoire des certificas
+  file: path=/home/letsencrypt/ssl/{{ item }} state=directory owner=letsencrypt group=letsencrypt mode="u+rwX,g+rwX,o+r" recurse=yes
+  with_items:
+    - imap.lghs.space
+    - mail.lghs.space
+
+- name: Copie des certificas
+  copy: src=secured/ssl/{{ item }} dest=/home/letsencrypt/ssl/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rw,g+r,o+r"
+  with_items:
+    - imap.lghs.space/imap.lghs.space.crt
+    - imap.lghs.space/imap.lghs.space.key
+    - imap.lghs.space/imap.lghs.space.csr
+    - mail.lghs.space/mail.lghs.space.crt
+    - mail.lghs.space/mail.lghs.space.key
+    - mail.lghs.space/mail.lghs.space.csr
+
+- name: Copie des certificas
+  copy: src=secured/bundles/{{ item }} dest=/home/letsencrypt/bundles/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rw,g+r,o+r"
+  with_items:
+    - imap.lghs.space.pem
+    - mail.lghs.space.pem

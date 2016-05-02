@@ -18,7 +18,7 @@
     - webroot
 
 - name: Copie des fichier
-  copy: src={{ item }} dest=/etc/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
+  copy: src={{ item }} dest=/home/letsencrypt/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
   with_items:
     - le-cron.sh
     - acme_tiny.py
