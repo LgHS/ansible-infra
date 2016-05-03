@@ -16,7 +16,7 @@
 - name: Ajout de l'user vmail
   user: name=vmail shell=/bin/false append=yes state=present uid=5000 home=/var/mail
 
-- name: Ajout de l'user
+- name: Ajout de l'user spamd
   user: name=spamd shell=/bin/false append=yes state=present uid=5001 home=/var/lib/spamassassin
 
 - name: Copie des fichier de configuration postfix
@@ -62,6 +62,31 @@
   copy: src=greylist.conf  dest=/etc/milter-greylist/greylist.conf owner=root group=root mode="u+rw,g+r,o+r"
   notify:
     - restart milter-greylist
+
+- name: config opendkim
+  copy: src=opendkim.conf  dest=/etc/opendkim.conf owner=root group=root mode="u+rw,g+r,o+r"
+  notify:
+    - restart opendkim
+
+- name: Créer repertoire opendkim
+  file: path=/etc/opendkim/key state=directory owner=root group=root mode="u+rwX,g+rwX,o+r" recurse=yes
+
+- name: Créer repertoire domain opendkim
+  file: path=/etc/opendkim/key/{{ item }} state=directory owner=root group=root mode="u+rwX,g+rwX,o+r" recurse=yes
+  with_items: {{ DOMAIN }}
+
+- name: copie repertoire domain opendkim
+  copy: src=secured/opendkim/{{ item }}/mail.private  dest=/etc/opendkim/key/{{ item }}/mail.private owner=root group=root mode="u+rw,g+r,o+r"
+  with_items: {{ DOMAIN }}
+
+- name: config opendkim domain
+  template: src={{ item }}.j2 dest=/etc/opendkim/{{ item }} owner=root group=dovecot mode="u+rw,g+r,o+r"
+  with_items:
+    - TrustedHosts
+    - KeyTable
+    - SigningTable
+  notify:
+    - restart opendkim
 
 - name: Activer postfix au démérage
   service: name=postfix state=started enabled=yes

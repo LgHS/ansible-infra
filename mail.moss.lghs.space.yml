@@ -3,9 +3,10 @@
 
 - hosts: mail.moss.lghs.space
   vars:
-    domain:
+    DOMAIN:
       - lghs.space
       - lghs.be
+      - ml.lghs.be
 
   pre_tasks:
     - include_vars: secured/password.yml
@@ -16,8 +17,4 @@
     - le-mail
     - dovecote
     - postfix
-    #~ - dovecote
     #~ - mlmmj
-    #~ - dovecote
-    #~ - dovecote
-    #~ - postfix
