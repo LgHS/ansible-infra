@@ -2,6 +2,10 @@
 # confgig commun de tout les hosts
 
 - hosts: mail.moss.lghs.space
+  vars:
+    domain:
+      - lghs.space
+      - lghs.be
 
   pre_tasks:
     - include_vars: secured/password.yml
@@ -11,6 +15,7 @@
     - letsencrypt
     - le-mail
     - dovecote
+    - postfix
     #~ - dovecote
     #~ - mlmmj
     #~ - dovecote

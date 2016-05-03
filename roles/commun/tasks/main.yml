@@ -11,3 +11,4 @@
 - include: collectd.yml
 - include: ssmtp.yml
   when: ansible_hostname != "mail"
+- include: local.yml

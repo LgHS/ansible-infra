@@ -2,5 +2,4 @@
 # role commun de tout les hosts
 
 - include: app.yml
-#~ - include: collectd.yml
 #~ - include: monit.yml
