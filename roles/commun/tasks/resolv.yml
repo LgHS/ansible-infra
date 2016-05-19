@@ -1,4 +1,0 @@
----
-
-- name: Copie des fichier de resolv.conf
-  copy: src=resolv.conf dest=/etc/resolv.conf owner=root group=root mode="u+rw,g+r,o+r"

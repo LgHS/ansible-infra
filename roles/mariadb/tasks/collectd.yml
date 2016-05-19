@@ -1,6 +1,0 @@
----
-
-- name: Copie des fichier de configuration monit
-  template: src=mariadb.j2 dest=/etc/collectd/collectd.conf.d/mariadb.confowner=root group=root mode="u+rw,g+r,o+r"
-  notify:
-    - restart collectd

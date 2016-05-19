@@ -1,6 +1,0 @@
----
-
-- include: app.yml
-- include: monit.yml
-- include: collectd.yml
-

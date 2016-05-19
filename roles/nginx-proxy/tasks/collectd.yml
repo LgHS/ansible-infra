@@ -1,9 +1,0 @@
----
-
-- name: Installation de libcurl3-gnutls
-  apt: name=libcurl3-gnutls state=present cache_valid_time=3600
-
-- name: Copie des fichier de configuration monit
-  copy: src=monitor/nginx.conf dest=/etc/collectd/collectd.conf.d/nginx.conf owner=root group=root mode="u+r,g-rwx,o-rwx"
-  notify:
-    - restart collectd

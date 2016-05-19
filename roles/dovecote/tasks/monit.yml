@@ -1,6 +1,0 @@
----
-
-- name: Copie des fichier de configuration dovecot
-  copy: src=dovecot dest=/etc/monit.d/dovecot owner=root group=root mode="u+r,g-rwx,o-rwx"
-  notify:
-    - restart monit

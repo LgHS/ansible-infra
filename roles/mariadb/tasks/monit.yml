@@ -1,6 +1,0 @@
----
-
-- name: Copie des fichier de configuration monit
-  copy: src=mariadb dest=/etc/monit.d/mariadb owner=root group=root mode="u+r,g-rwx,o-rwx"
-  notify:
-    - restart monit
