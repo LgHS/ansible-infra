@@ -43,6 +43,12 @@
   notify:
     - restart collectd
 
+- name: Copie du fichier auth_file
+  copy: src=secured/auth_file dest=/etc/collectd/auth_file owner=root group=root mode="u+rw,g+r,o+r"
+  notify:
+    - restart collectd
+  when: ansible_hostname == "monit"
+
 - name: Activer le service collectd au démérage
   service: name=collectd state=started enabled=yes
 

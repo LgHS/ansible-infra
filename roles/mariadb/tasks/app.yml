@@ -15,7 +15,6 @@
 - name: Activer le service mariadb au démérage
   service: name=mysql state=started enabled=yes
 
-
 - name: Desactiver root remonte connexion
   command: 'mysql -NBe "{{ item }}"'
   with_items:

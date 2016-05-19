@@ -1,0 +1,24 @@
+---
+# confgig commun de tout les hosts
+
+- hosts: richmond.lghs.space
+  vars:
+    unbound:
+    iptables:
+      TCP: [ 80, 443, 22 ]
+      UDP:
+      TCP-FORWARD:
+      UDP-FORWARD:
+      TCP6-FORWARD:
+      UDP6-FORWARD:
+      ALLOW-IPV6:
+      ALLOW-IPV4:
+
+  roles:
+    - iptables
+    - sshguard
+    - unbound
+    - letsencrypt
+    - nginx-proxy
+    - nodejs
+    - mongodb

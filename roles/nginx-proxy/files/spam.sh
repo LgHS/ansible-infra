@@ -14,4 +14,4 @@ done < ./listed_ip_180.txt
 
 cd / && rm -rf ${dir}
 
-systemctl restart nginx
+service nginx reload

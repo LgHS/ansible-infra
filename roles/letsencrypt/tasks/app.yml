@@ -8,9 +8,9 @@
     - busybox
 
 - name: Ajout de l'user
-  user: name=letsencrypt shell=/bin/bash append=yes state=present uid=999
+  user: name=letsencrypt shell=/bin/false append=yes state=present uid=999
 
-- name: Créer repertoire collectd
+- name: Créer repertoire letsencrypt
   file: path=/home/letsencrypt/{{ item }} state=directory owner=letsencrypt group=letsencrypt mode="u+rwX,g+rwX,o+r" recurse=yes
   with_items:
     - bundles
@@ -23,17 +23,17 @@
     - le-cron.sh
     - acme_tiny.py
 
-- name: Copie des fichier
+- name: Copie des fichier letsencrypt.key
   copy: src=secured/letsencrypt.key dest=/home/letsencrypt/ssl/letsencrypt.key owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
 
-- name: Copie des fichier
-  copy: src=letsencrypt.service dest=/etc/systemd/system/letsencrypt.service owner=root group=root mode="u+r,g-rwx,o-rwx"
-  with_items:
-    - le-cron.sh
-    - acme_tiny.py
+- name: Copie des fichier dh4096.pem
+  copy: src=secured/dh4096.pem dest=/home/letsencrypt/ssl/dh4096.pem owner=letsencrypt group=letsencrypt mode="u+rx,g-rw,o-rwx"
+
+- name: Copie des fichier supervisor
+  copy: src=letsencrypt.conf dest=/etc/supervisor/conf.d/letsencrypt.conf owner=root group=root mode="u+rx,g+rx,o+r"
+  notify:
+    - restart supervisor
 
 - name: cron letsencrypt
   cron: name="check certificates" minute="30" hour="4" job="/home/letsencrypt/le-cron.sh"
 
-- name: Activer monit au démérage
-  service: name=letsencrypt.service state=started enabled=yes

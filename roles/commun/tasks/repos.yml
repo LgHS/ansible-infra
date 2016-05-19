@@ -10,8 +10,14 @@
 - name: Ajout cles dotdeb
   apt_key: url=https://www.dotdeb.org/dotdeb.gpg
 
+- name: Ajout cles nodeJS
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+- name: Ajout cles mongodb
+  apt_key: keyserver=keyserver.ubuntu.com id=7F0CEB10
+
 - name: Mis à jours des serveurs
-  apt: upgrade=safe update_cache=yes cache_valid_time=3600
+  apt: upgrade=safe update_cache=yes
 
 - name: Installation de cron-apt
   apt: name=cron-apt state=present cache_valid_time=3600

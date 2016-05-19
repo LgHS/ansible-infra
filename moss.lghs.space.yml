@@ -6,22 +6,34 @@
     unbound:
       - moss.lghs.space:
         ipv4: 10.4.2.1
+        ipv6: 2001:bc8:22e7:100:10:4:2:1
       - sql.moss.lghs.space:
         ipv4: 10.4.2.5
+        ipv6: 2001:bc8:22e7:100:10:4:2:5
       - app.moss.lghs.space:
         ipv4: 10.4.2.10
+        ipv6: 2001:bc8:22e7:100:10:4:2:10
       - mail.moss.lghs.space:
         ipv4: 10.4.2.15
+        ipv6: 2001:bc8:22e7:100:10:4:2:15
       - monit.moss.lghs.space:
         ipv4: 10.4.2.20
+        ipv6: 2001:bc8:22e7:100:10:4:2:20
     iptables:
       TCP: [ 80, 443, 22, 53, 2812 ]
-      UDP: [ 53 ]
+      UDP: [ 53, 546 ]
       TCP-FORWARD:
       - 10.4.2.15: [ 25, 143, 465, 993, 587 ]
       UDP-FORWARD:
+      - 10.4.2.20: [ 25826 ]
       TCP6-FORWARD:
+      - 2001:bc8:22e7:100:10:4:2:15: [ 25, 143, 465, 993, 587 ]
       UDP6-FORWARD:
+      - 2001:bc8:22e7:100:10:4:2:20: [ 25826 ]
+      ALLOW-IPV6:
+      - 2001:bc8:22e7:100::/56
+      ALLOW-IPV4:
+      - 10.4.2.0/24
     nsd:
       - lghs.space
       - lghs.be

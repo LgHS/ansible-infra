@@ -1,7 +1,11 @@
 server:
 	auto-trust-anchor-file: "/var/lib/unbound/root.key"
 	verbosity: 1
+{% if ansible_hostname == "moss" %}
 	interface: 10.4.2.1
+{% else %}
+	interface: 127.0.0.1
+{% endif %}
 	port: 53
 	do-ip4: yes
 	do-ip6: yes
@@ -9,8 +13,10 @@ server:
 	do-tcp: yes
 	access-control: ::1 allow_snoop
 	access-control: 127.0.0.1 allow_snoop
+{% if ansible_hostname == "moss" %}
 	access-control: 10.4.2.0/24 allow_snoop
 	private-address: 10.4.2.0/24
+{% endif %}
 	root-hints: "/var/lib/unbound/root.hints"
 	hide-identity: yes
 	hide-version: yes
@@ -27,6 +33,7 @@ server:
 	do-not-query-localhost: no
 	val-clean-additional: yes
 
+{% if unbound %}
 local-zone: "moss.lghs.space." static
 {% for d in unbound %}
 {% if 'ipv4' in d %}
@@ -38,3 +45,4 @@ local-zone: "moss.lghs.space." static
 	local-data-ptr: "{{ d['ipv6'] }}  {{ d.keys()[0] }}"
 {% endif %}
 {% endfor %}
+{% endif %}

@@ -1,10 +1,14 @@
 ---
 
+- stat: path=/home/letsencrypt/bundles/imap.lghs.space.pem
+  register: p
+
 - name: Créer repertoire des certificas
   file: path=/home/letsencrypt/ssl/{{ item }} state=directory owner=letsencrypt group=letsencrypt mode="u+rwX,g+rwX,o+r" recurse=yes
   with_items:
     - imap.lghs.space
     - mail.lghs.space
+  when: p.stat.exists == False
 
 - name: Copie des certificas
   copy: src=secured/ssl/{{ item }} dest=/home/letsencrypt/ssl/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rw,g+r,o+r"
@@ -15,9 +19,11 @@
     - mail.lghs.space/mail.lghs.space.crt
     - mail.lghs.space/mail.lghs.space.key
     - mail.lghs.space/mail.lghs.space.csr
+  when: p.stat.exists == False
 
 - name: Copie des certificas
   copy: src=secured/bundles/{{ item }} dest=/home/letsencrypt/bundles/{{ item }} owner=letsencrypt group=letsencrypt mode="u+rw,g+r,o+r"
   with_items:
     - imap.lghs.space.pem
     - mail.lghs.space.pem
+  when: p.stat.exists == False

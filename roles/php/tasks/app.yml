@@ -37,6 +37,7 @@
     - php7.0-tidy
     - php7.0-xmlrpc
     - php7.0-xsl
+    - snmp-mibs-downloader
 
 - name: php cgi config
   replace: dest=/etc/php/7.0/fpm/php.ini regexp='^cgi.fix_pathinfo=1$' replace='cgi.fix_pathinfo=0"' backup=no

@@ -5,7 +5,6 @@
   with_items:
     - nginx-full
     - liblwp-useragent-determined-perl
-    - unzip
 
 - name: Créer repertoire default et erreur
   file: path=/var/www/{{ item }} state=directory owner=www-data group=www-data mode="u+rwX,g+rwX,o+r" recurse=yes
@@ -17,7 +16,6 @@
   copy: src={{ item }} dest=/etc/nginx/{{ item }} owner=root group=root mode="u+rw,g+r,o+r"
   with_items:
     - nginx.conf
-    - conf.d/stopforumspam.conf
     - sites-available/default
   notify:
     - restart nginx
@@ -28,9 +26,6 @@
     - default/index.html
     - error/-error-404.html
     - error/-error-50x.html
-
-- name: Tache cron spam
-  cron: name="Update ban list nginx" minute="30" hour="0" job="/opt/tharyrok/stopforumspam/spam.sh"
 
 - name: Activer le service nginx au démérage
   service: name=nginx state=started enabled=yes

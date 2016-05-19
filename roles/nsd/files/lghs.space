@@ -1,5 +1,5 @@
 lghs.space.			3600	SOA		ns.lghs.space. postmaster.lghs.space. (
-								2016050105   ; serial YYYYMMDDnn
+								2016051701   ; serial YYYYMMDDnn
 								86400        ; refresh (  24 hours)
 								7200         ; retry   (   2 hours)
 								3600000      ; expire  (1000 hours)
@@ -10,31 +10,28 @@ lghs.space.			84600	NS		nssec.online.net.
 
 lghs.space.			84600	MX	10	mail.lghs.space.
 
-lghs.space.			600	A		62.210.30.38
-lghs.space.			600	AAAA	2001:bc8:22e7:100:10:4:2:1
+lghs.space.					600	A		62.210.30.38
+lghs.space.					600	AAAA	2001:bc8:22e7:100::1
 
 parpaing.lghs.space.		600	A		80.67.181.231
-moss.lghs.space.			600	A		62.210.30.38
-mail.moss.lghs.space.		600	A		62.210.30.38
-app.moss.lghs.space.		600	A		62.210.30.38
-sql.moss.lghs.space.		600	A		62.210.30.38
-monit.moss.lghs.space.		600	A		62.210.30.38
-
 parpaing.lghs.space.		600	AAAA	2001:913:1fff:ffff::b:d0b3
-moss.lghs.space.			600	AAAA	2001:bc8:22e7:100:10:4:2:1
-sql.moss.lghs.space.		600	AAAA	2001:bc8:22e7:100:10:4:2:5
-app.moss.lghs.space.		600	AAAA	2001:bc8:22e7:100:10:4:2:10
+moss.lghs.space.			600	A		62.210.30.38
+moss.lghs.space.			600	AAAA	2001:bc8:22e7:100::1
+richmond.lghs.space.		600 A		195.154.109.54
+richmond.lghs.space.		600 AAAA	2001:bc8:22e7:300::1
+
+mail.moss.lghs.space.		600	A		62.210.30.38
 mail.moss.lghs.space.		600	AAAA	2001:bc8:22e7:100:10:4:2:15
-monit.moss.lghs.space.		600	AAAA	2001:bc8:22e7:100:10:4:2:20
 
 ns.lghs.space.			600	CNAME		moss.lghs.space.
-webmail.lghs.space.		600	CNAME		app.moss.lghs.space.
+webmail.lghs.space.		600	CNAME		moss.lghs.space.
+log.lghs.space.			600	CNAME		moss.lghs.space.
+monit.lghs.space.		600	CNAME		moss.lghs.space.
+sql.lghs.space.			600	CNAME		moss.lghs.space.
+ml.lghs.space.			600	CNAME		moss.lghs.space.
 imap.lghs.space.		600	CNAME		mail.moss.lghs.space.
 mail.lghs.space.		600	CNAME		mail.moss.lghs.space.
-ml.lghs.space.			600	CNAME		mail.moss.lghs.space.
-log.lghs.space.			600	CNAME		monit.moss.lghs.space.
-monit.lghs.space.		600	CNAME		monit.moss.lghs.space.
+mqtt.lghs.space.		600	CNAME		parpaing.lghs.space.
 
-
-lghs.space.			600	TXT		"v=spf1 ip4:62.210.30.38 -all"
-mail._domainkey.lghs.space.	600	TXT		"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCfowhLzE0RQmDxeEI/bB/cHR5enp3Km0Z5Ry9St80mw0AuwDEZa5Hkh01q/+vGjSmootDXn8DhtvaSRbVfEHolrAsJLpj3pSvec0hAlYen3XBDHIGcKK7uK6Mfrx18Z9e5KjghZoCHDKL+pYUB3iFkZocrMTX1JQPXw2vwVd+jpQIDAQAB"
+lghs.space.					600	TXT		"v=spf1 ip4:62.210.30.38 -all"
+mail._domainkey.lghs.space.	600	TXT		"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDHY2Pyt9Ic/XdRq+GwXxgTjSY5qd0ieJthHdoawdnmBLsi0kP8jZGjVjNj6ZYfqi9Faa+914EmjpOV20M4QFifWiplPEepzYY9pWuMA2yD58RhmmDQ46CueyAy/n3HWlKP+yf0hB/L4eq6gCZmSsE9CQoJDHMmYkN6dUXBNn1bqQIDAQAB"

@@ -3,5 +3,8 @@
 
 - hosts: all
 
+  pre_tasks:
+    - include_vars: secured/password.yml
+
   roles:
     - commun

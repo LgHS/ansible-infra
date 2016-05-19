@@ -1,0 +1,9 @@
+---
+
+- name: Installation de mongodb
+  apt: name={{ item }} state=present cache_valid_time=3600
+  with_items:
+    - mongodb-org
+
+- name: Activer le service mongodb au démérage
+  service: name=mongod state=started enabled=yes

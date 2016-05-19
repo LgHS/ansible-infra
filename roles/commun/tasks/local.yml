@@ -3,8 +3,11 @@
 - name: Change timezone en UTC
   file: src=/usr/share/zoneinfo/Etc/UTC  dest=/etc/localtime state=link force=yes
 
-- name: Installation de postfix
+- name: Installation de ntp
   apt: name=ntp state=present cache_valid_time=3600
+
+- name: Installation de locales
+  apt: name=locales state=present cache_valid_time=3600
 
 - name: Génération local
   locale_gen: name=en_US.UTF-8 state=present

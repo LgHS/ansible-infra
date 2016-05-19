@@ -4,7 +4,6 @@
 
 - include: repos.yml
 - include: users.yml
-- include: monit.yml
 - include: openssh.yml
 - include: motd.yml
 - include: resolv.yml
@@ -12,3 +11,6 @@
 - include: ssmtp.yml
   when: ansible_hostname != "mail"
 - include: local.yml
+- include: tools.yml
+- include: monit.yml
+- include: supervisor.yml

@@ -13,6 +13,8 @@
     - monit/monitrc
     - monit.d/filesystem
     - monit.d/loadavg
+    - monit.d/supervisor
+    - monit.d/openssh
   notify:
     - restart monit
 

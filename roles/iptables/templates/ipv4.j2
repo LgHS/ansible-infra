@@ -27,8 +27,12 @@ COMMIT
 -A FORWARD -m conntrack --ctstate INVALID -j DROP
 -A INPUT -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
 -A FORWARD -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
--A INPUT -s 10.4.2.0/24 -j ACCEPT
--A FORWARD -s 10.4.2.0/24 -j ACCEPT
+{% if iptables['ALLOW-IPV4'] %}
+{% for d in iptables['ALLOW-IPV4'] %}
+-A INPUT -s {{ d }} -j ACCEPT
+-A FORWARD -s {{ d }} -j ACCEPT
+{% endfor %}
+{% endif %}
 -A INPUT -p udp -m conntrack --ctstate NEW -j UDP
 -A FORWARD -p udp -m conntrack --ctstate NEW -j UDP-FORWARD
 -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP

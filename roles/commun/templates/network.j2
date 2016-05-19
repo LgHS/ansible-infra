@@ -3,18 +3,28 @@ LoadPlugin network
 LoadPlugin rrdtool
 
 <Plugin network>
+	SecurityLevel "Encrypt"
+	Listen "::" "25826"
 	Listen "0.0.0.0" "25826"
+	AuthFile "/etc/collectd/auth_file"
 </Plugin>
 <Plugin "rrdtool">
   DataDir "/var/lib/collectd/rrd"
   CacheFlush 120
   WritesPerSecond 50
 </Plugin>
+<Plugin "rrdcached">
+  DaemonAddress "unix:/var/run/rrdcached.sock"
+  DataDir "/var/lib/collectd/rrd"
+  CreateFiles true
+</Plugin>
 {% else %}
 
 <Plugin network>
 	Server "monit.moss.lghs.space" "25826"
 	TimeToLive 128
+	Username "{{ ansible_fqdn }}"
+	Password "{{ COLLECTD[ansible_fqdn] }}"
 </Plugin>
 
 {% endif %}

@@ -2,5 +2,19 @@
 # confgig general de tout les hosts
 
 - name: Installation de haproxy
-  apt: name=haproxy state=present cache_valid_time=3600
+  apt: name={{ item }} state=present cache_valid_time=3600
+  with_items:
+    - haproxy
+    - unzip
 
+- name: Créer repertoire tache cron
+  file: path=/opt/tharyrok/ state=directory owner=root group=root mode="u+rwX,g+rwX,o+r" recurse=yes
+
+- name: Copie des fichier tache cron
+  copy: src=spam.sh dest=/opt/tharyrok/spam.sh owner=root group=root mode="u+rx,g+rx,o-rwx"
+
+- name: Tache cron spam
+  cron: name="Update ban list haproxy" minute="30" hour="0" job="/opt/tharyrok/spam.sh"
+
+- name: Activer haproxy au démérage
+  service: name=haproxy state=started enabled=yes

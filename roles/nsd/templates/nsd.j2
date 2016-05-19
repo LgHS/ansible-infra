@@ -1,6 +1,7 @@
 server:
 	server-count: 1
-	ip-address: 192.168.12.105
+	ip-address: 62.210.30.38
+	ip-address: 2001:bc8:22e7:100::1
 	ip-transparent: yes
 	do-ip4: yes
 	do-ip6: yes
@@ -20,7 +21,7 @@ server:
 zone:
 	name: "{{ domain }}"
 	zonefile: "{{ domain }}.zone"
-	#provide-xfr: 62.210.16.8 NOKEY
-	#notify: 62.210.16.8 NOKEY
+	provide-xfr: 62.210.16.8 NOKEY
+	notify: 62.210.16.8 NOKEY
 
 {% endfor %}
